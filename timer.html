@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body{
+        padding: 0;
+        margin: 0;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .timer-container{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 60vh;
+        flex-direction: column;
+    }
+
+    .timer-container h1{
+        font-size: 100px;
+    }
+
+    button{
+        padding: 8px;
+        margin: 0 5px 0 5px;
+        cursor: pointer;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 23px;
+    }
+
+    button:nth-child(1){
+        background-color: #4CAF50;
+    }
+    button:nth-child(2){
+        background-color: #2196F3;
+    }
+    button:nth-child(3){
+        background-color: #FF9800;
+    }
+    button:nth-child(4){
+        background-color: #F44336;
+    }
+    button:nth-child(5){
+        background-color: #9E9E9E;
+    }
+
+    #time-number{
+        margin-top: 15px;
+        font-size: 60px;
+        font-weight: bold;
+    }
+
+</style>
+<body>
+    
+    <div class="timer-container">
+        <h1>Timer</h1>
+        <div class="buttons">
+            <button id="3minsBtn">3 mins</button>
+            <button id="1minBtn">1 mins</button>
+            <button id="30secBtn">30 sec</button>
+            <button id="10secBtn">10 sec</button>
+            <button id="stopBtn">Stop</button>
+        </div>
+        <label id="time-number"></label>
+    </div>
+    
+</body>
+<script>
+    const display = document.getElementById('time-number');
+    let timer;
+
+    function startTimer(seconds) {
+        clearInterval(timer); 
+        updateDisplay(seconds);
+
+        timer = setInterval(() => {
+            seconds--;
+            updateDisplay(seconds);
+
+            if (seconds <= 0) {
+                clearInterval(timer);
+                alert("Time's up!");
+            }
+        }, 1000);
+    }
+
+    function updateDisplay(seconds) {
+        let m = Math.floor(seconds / 60);
+        let s = seconds % 60;
+        display.textContent = `${m}:${s < 10 ? '0' : ''}${s}`;
+    }
+
+    document.getElementById('3minsBtn').onclick = () => startTimer(180);
+    document.getElementById('1minBtn').onclick = () => startTimer(60);
+    document.getElementById('30secBtn').onclick = () => startTimer(30);
+    document.getElementById('10secBtn').onclick = () => startTimer(10);
+    document.getElementById('stopBtn').onclick = () => {
+        clearInterval(timer);
+        display.textContent = '';
+    };
+</script>
+
+
+</html>
